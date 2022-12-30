@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 // To create the unique id
 const uuid = require("uuid");
-// GET /api/notes from db.json and return all saved notes
-const db = require("../db/db.json");
+// db class
+const db = require("../db/dbNotes.js")
 
-// GET all notes
+
+// GET /api/notes from JSON and return all saved notes
 router.post("api/notes", async function (req, res) {
     const notes = await db.readNotes();
     return res.json(notes);
@@ -20,7 +21,7 @@ router.post("/api/notes", async function (req, res) {
       title: req.body.title,
       text: req.body.text,
     };
-    
+
     await db.addNote([...currentNotes, newNote]);
     //  return all saved notes as JSON
     return res.send(newNote);
@@ -29,16 +30,16 @@ router.post("/api/notes", async function (req, res) {
 
 // Bonus - DELETE /api/notes/:id via req.params.id
 router.delete("/api/notes/:id", async function (req, res) {
-    // GET | READ all notes from db.json
-    const allNotes = req.params.id;
-    // DELETE note with the id
-    const noteWithId = await db.readNotes();
-    // UPDATE | PUT notes in the db.json
-    const updateNotes = noteWithId.filter((note) => note.id !== allNotes);
+    // Query parameter containing the id of a note to delete
+    const noteToDelete = req.params.id;
+    // Read all notes from the db.json
+    const readAllNotes = await db.readNotes();
+    // Remove the note with the given id property
+    const noteWithId = readAllNotes.filter((note) => note.id !== noteToDelete);
 
-    await db.deleteNotes(updateNotes);
-    // return the new note to the client
-    return res.send(updateNotes);
+    await db.deleteNotes(noteWithId);
+    // rewrite the notes to the db.json
+    return res.send(noteWithId);
 
 });
 
