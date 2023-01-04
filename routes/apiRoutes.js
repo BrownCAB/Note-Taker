@@ -33,14 +33,15 @@ router.post("/notes", async function (req, res) {
 
 // Bonus - DELETE /api/notes/:id via req.params.id
 router.delete("/notes/:id", async function (req, res) {
+
     // Query parameter containing the id of a note to delete
     const noteToDelete = req.params.id;
     // Read all notes from the db.json
-    const readAllNotes = await db.readNotes();
+    const readAllNotes = await db.readNote();
     // Remove the note with the given id property
     const noteWithId = readAllNotes.filter((note) => note.id !== noteToDelete);
 
-    await db.deleteNotes(noteWithId);
+    await db.deleteNote(noteWithId);
     // rewrite the notes to the db.json
     return res.send(noteWithId);
 
