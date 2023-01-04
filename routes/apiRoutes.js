@@ -1,23 +1,26 @@
 const express = require("express");
 const router = express.Router();
 // To create the unique id
-const uuid = require("uuid");
+const { v4: uuidv4 } = require('uuid');
 // db class
 const db = require("../db/dbNotes.js")
+console.log(db.readNotes)
 
 
 // GET /api/notes from JSON and return all saved notes
-router.post("api/notes", async function (req, res) {
+router.get("/notes", async function (req, res) {
     const notes = await db.readNotes();
     return res.json(notes);
   });
 
 // POST /api/notes | CREATE and save in req.body, db, and front end
-router.post("/api/notes", async function (req, res) {
+router.post("/notes", async function (req, res) {
+  console.log("do i work")
     const currentNotes = await db.readNotes();
+    console.log(currentNotes)
     let newNote = {
        // add a unique id to note
-      id: uuid(),
+      id: uuidv4(),
       title: req.body.title,
       text: req.body.text,
     };
@@ -29,7 +32,7 @@ router.post("/api/notes", async function (req, res) {
 });
 
 // Bonus - DELETE /api/notes/:id via req.params.id
-router.delete("/api/notes/:id", async function (req, res) {
+router.delete("/notes/:id", async function (req, res) {
     // Query parameter containing the id of a note to delete
     const noteToDelete = req.params.id;
     // Read all notes from the db.json
