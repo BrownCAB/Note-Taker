@@ -20,7 +20,8 @@ As a small business owner I want to be able to write and save notes so that I ca
 
 ## Links
 
-<img src="./assets/">
+<img src="./assets/noteTaker1.png">
+<img src="./assets/noteTaker2.png">
   <br>
  
 
