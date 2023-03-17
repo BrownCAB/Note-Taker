@@ -16,7 +16,7 @@
 
 ## Description
 
-As a small business owner I want to be able to write and save notes so that I can organize my thoughts and keep track of tasks I need to complete.this challenge is to create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
+As a small business owner I want to be able to write and save notes so that I can organize my thoughts and keep track of tasks I need to complete. This challenge is to create an application called Note Taker that can be used to write and save notes. This application will use an Express.js back end and will save and retrieve note data from a JSON file.
 
 <img src="./assets/noteTaker1.png">
 <img src="./assets/noteTaker2.png">
